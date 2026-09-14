@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Interactive MALE UAV aero piston-engine digital twin prototype." />
+    <title>AeroTwin Command | MALE UAV Engine Digital Twin</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="cursor-glow" aria-hidden="true"></div>
+
+    <header class="nav-shell">
+      <a class="brand" href="#top" aria-label="AeroTwin Command home">
+        <span class="brand-mark" aria-hidden="true"><i></i></span>
+        AEROTWIN<span>/CMD</span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="#command">Command</a>
+        <a href="#scenario">Simulate</a>
+        <a href="#replay">Replay</a>
+        <a href="#architecture">Architecture</a>
+      </nav>
+      <div class="nav-live"><i></i> SIMULATION LIVE</div>
+    </header>
+
+    <main>
+      <section class="hero" id="top">
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="hero-beam" aria-hidden="true"></div>
+        <div class="hero-copy">
+          <p class="eyebrow intro">DRDO · SIH 26054 / DIGITAL TWIN PROTOTYPE</p>
+          <h1 class="intro intro-delay-1">MISSION READY.<br /><em>BEFORE FAILURE.</em></h1>
+          <p class="lede intro intro-delay-2">
+            An AI-enabled, real-time digital twin for MALE UAV aero piston engines.
+            It turns telemetry into early warnings, remaining-life estimates, and
+            dependable mission decisions.
+          </p>
+          <div class="hero-actions intro intro-delay-3">
+            <a class="button primary" href="#command">ENTER COMMAND CENTER <b>↗</b></a>
+            <button class="brief-button" id="briefButton" type="button"><i>▶</i> VIEW MISSION BRIEF</button>
+          </div>
+          <div class="hero-specs intro intro-delay-4">
+            <div><strong>08</strong><span>live parameters</span></div>
+            <div><strong>&lt;2s</strong><span>twin refresh</span></div>
+            <div><strong>06</strong><span>risk profiles</span></div>
+          </div>
+        </div>
+
+        <div class="uav-stage" aria-label="Original schematic MALE UAV illustration">
+          <span class="stage-label label-alt">ALT / 18,400 FT</span>
+          <span class="stage-label label-route">ROUTE / ALPHA-27</span>
+          <span class="stage-label label-sync">TWIN / LINKED</span>
+          <div class="radar-ring ring-one" aria-hidden="true"></div>
+          <div class="radar-ring ring-two" aria-hidden="true"></div>
+          <svg viewBox="0 0 850 530" role="img" aria-label="MALE UAV line illustration">
+            <defs>
+              <linearGradient id="bodyGradient" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stop-color="#e1fbf7"></stop>
+                <stop offset="50%" stop-color="#56858b"></stop>
+                <stop offset="100%" stop-color="#10232d"></stop>
+              </linearGradient>
+              <linearGradient id="wingGradient" x1="0" x2="1">
+                <stop offset="0%" stop-color="#81ebe4" stop-opacity=".84"></stop>
+                <stop offset="100%" stop-color="#183442" stop-opacity=".23"></stop>
+              </linearGradient>
+              <filter id="glow"><feGaussianBlur stdDeviation="2.5" result="blur"></feGaussianBlur><feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter>
+            </defs>
+            <path class="flight-path" d="M66 355 C 202 211, 326 218, 441 282 S 629 370, 795 148"></path>
+            <path class="flight-path secondary" d="M66 398 C 200 297, 362 272, 535 337 S 661 348, 820 274"></path>
+            <g class="uav">
+              <path class="wing-fill" d="M95 254 L370 277 L430 299 L360 318 L95 294 Z"></path>
+              <path class="wing-fill flip" d="M482 299 L541 277 L818 254 L818 294 L497 318 Z"></path>
+              <path class="wing-line" d="M93 271 L376 294 L426 301 L376 309 L93 292"></path>
+              <path class="wing-line" d="M428 301 L480 294 L818 271 L818 292 L480 309"></path>
+              <path class="body" d="M428 99 C 472 117, 501 174, 504 256 L503 352 C 501 401, 476 430, 429 451 C 382 430, 358 401, 356 352 L356 256 C 360 174, 390 117, 428 99 Z"></path>
+              <path class="body-line" d="M429 119 L429 434"></path>
+              <path class="tail" d="M355 382 L284 445 L356 428 M503 382 L575 445 L503 428"></path>
+              <ellipse class="engine-orbit" cx="429" cy="194" rx="44" ry="44"></ellipse>
+              <circle class="engine-core" cx="429" cy="194" r="29"></circle>
+              <circle class="engine-hotspot" cx="429" cy="194" r="7"></circle>
+              <path class="sensor-line" d="M477 195 L608 157 L659 157"></path>
+              <circle class="sensor-node" cx="659" cy="157" r="5"></circle>
+              <path class="sensor-line" d="M381 195 L253 158 L200 158"></path>
+              <circle class="sensor-node" cx="200" cy="158" r="5"></circle>
+            </g>
+            <g class="svg-labels">
+              <text x="618" y="146">PROPULSION NODE</text>
+              <text x="92" y="148">TELEMETRY LINK</text>
+              <text x="386" y="505">MALE / POC-07</text>
+            </g>
+          </svg>
+          <div class="hero-health">
+            <span>ENGINE TWIN</span>
+            <strong id="heroHealth">94.2</strong>
+            <small>HEALTH INDEX</small>
+          </div>
+        </div>
+        <div class="scroll-note">SCROLL TO MONITOR <i></i></div>
+      </section>
+
+      <section class="command-section" id="command">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">01 / LIVE DIGITAL TWIN</p>
+            <h2>THE ENGINE,<br /><em>EXPLAINED.</em></h2>
+          </div>
+          <p>
+            A continuously synchronized virtual engine state combines simulated
+            sensor telemetry, performance maps, and physics-informed analytics.
+          </p>
+        </div>
+
+        <div class="command-frame reveal">
+          <div class="frame-top">
+            <div class="mission-name"><span>AT</span><div><strong>MALE-07 / ALPHA MISSION</strong><small>APX-01 · PISTON PROPULSION · SIMULATED CAN STREAM</small></div></div>
+            <div class="stream-meta"><span><i></i> TELEMETRY STREAM</span><strong id="missionClock">14:37:09 UTC</strong><button id="pauseButton" type="button" aria-label="Pause stream">Ⅱ</button></div>
+          </div>
+
+          <div class="metrics">
+            <article class="metric health"><p>ENGINE HEALTH</p><strong id="healthValue">94.2</strong><small>/100</small><div><i id="healthBar"></i></div><span id="healthState">NOMINAL / STABLE</span></article>
+            <article class="metric"><p>RUL ESTIMATE</p><strong id="rulValue">61</strong><small>FH</small><span>CONFIDENCE <b id="rulConfidence">91%</b></span></article>
+            <article class="metric"><p>ANOMALY SCORE</p><strong id="anomalyValue">0.08</strong><small>/1.00</small><span>MODEL <b>PI-AE v2.4</b></span></article>
+            <article class="metric"><p>MISSION RELIABILITY</p><strong id="reliabilityValue">98.6</strong><small>%</small><span id="reliabilityState">PROCEED / LOW RISK</span></article>
+          </div>
+
+          <div class="monitor-grid">
+            <article class="twin-panel">
+              <div class="panel-title"><span>01. PROPULSION TWIN</span><small id="twinMode">SYNCHRONIZED</small></div>
+              <div class="engine-view">
+                <div class="twin-grid" aria-hidden="true"></div>
+                <div class="orbit large" aria-hidden="true"></div>
+                <div class="orbit small" aria-hidden="true"></div>
+                <div class="css-engine" id="cssEngine" aria-label="Animated aero piston engine">
+                  <div class="prop"><i></i><b></b><em></em></div>
+                  <div class="case"><i></i><i></i><i></i></div>
+                  <div class="cylinder c1"><b></b></div><div class="cylinder c2"><b></b></div><div class="cylinder c3"><b></b></div><div class="cylinder c4"><b></b></div>
+                  <div class="beacon"></div>
+                </div>
+                <span class="data-tag tag-rpm">RPM <b id="rpmTag">2,418</b></span>
+                <span class="data-tag tag-egt">EGT <b id="egtTag">684°C</b></span>
+                <span class="data-tag tag-oil">OIL <b id="oilTag">4.8 bar</b></span>
+                <div class="fuse-note"><i></i> PHYSICS + TELEMETRY FUSED</div>
+              </div>
+              <div class="sensor-strip">
+                <span><b id="rpmValue">2,418</b> RPM</span><span><b id="chtValue">173</b>°C CHT</span><span><b id="fuelValue">34.6</b> L/H FUEL</span><span><b id="vibrationValue">0.18</b> G RMS</span>
+              </div>
+            </article>
+
+            <article class="insight-panel">
+              <div class="panel-title"><span>02. DIAGNOSTIC INSIGHT</span><small id="alertLabel">NO ACTIVE FAULT</small></div>
+              <div class="diagnostic">
+                <div class="status-symbol" id="statusSymbol">✓</div>
+                <div><strong id="diagnosticTitle">Healthy operating envelope</strong><p id="diagnosticCopy">Twin prediction matches observed engine behavior.</p></div>
+              </div>
+              <div class="evidence">
+                <div class="evidence-head"><span>EXPLAINABLE AI / SIGNAL EVIDENCE</span><b id="xaiConfidence">91% CONFIDENCE</b></div>
+                <div class="evidence-row"><span>EGT balance</span><i><b id="xaiEgt"></b></i><em id="xaiEgtText">NOMINAL</em></div>
+                <div class="evidence-row"><span>Fuel response</span><i><b id="xaiFuel"></b></i><em id="xaiFuelText">NOMINAL</em></div>
+                <div class="evidence-row"><span>Vibration</span><i><b id="xaiVibration"></b></i><em id="xaiVibrationText">NOMINAL</em></div>
+              </div>
+              <div class="advisory"><span>MAINTENANCE ADVISORY</span><p id="advisoryText">Continue mission. Maintain scheduled post-flight inspection.</p></div>
+            </article>
+          </div>
+
+          <div class="charts">
+            <article class="chart-card"><div><span>EGT / CHT TREND</span><small>LAST 30 MIN</small><b id="thermalTrend">STABLE</b></div><svg viewBox="0 0 360 115" preserveAspectRatio="none" aria-label="Thermal chart"><line x1="0" y1="22" x2="360" y2="22"></line><line x1="0" y1="57" x2="360" y2="57"></line><line x1="0" y1="92" x2="360" y2="92"></line><polyline class="secondary" id="chtLine"></polyline><polyline id="egtLine"></polyline></svg><p><i></i> EGT <i class="slate"></i> CHT</p></article>
+            <article class="chart-card"><div><span>OIL PRESSURE</span><small>LAST 30 MIN</small><b id="oilTrend">4.8 BAR</b></div><svg viewBox="0 0 360 115" preserveAspectRatio="none" aria-label="Oil pressure chart"><line x1="0" y1="22" x2="360" y2="22"></line><line x1="0" y1="57" x2="360" y2="57"></line><line x1="0" y1="92" x2="360" y2="92"></line><polyline id="oilLine"></polyline></svg><p><i></i> OBSERVED <i class="dash"></i> TWIN ENVELOPE</p></article>
+            <article class="chart-card"><div><span>ANOMALY TIMELINE</span><small>PI-AE MODEL</small><b id="anomalyTrend">LOW</b></div><svg viewBox="0 0 360 115" preserveAspectRatio="none" aria-label="Anomaly chart"><line x1="0" y1="22" x2="360" y2="22"></line><line x1="0" y1="57" x2="360" y2="57"></line><line x1="0" y1="92" x2="360" y2="92"></line><polyline id="anomalyLine"></polyline></svg><p><i></i> ANOMALY SCORE <span id="modelSignal">MODEL WATCHING</span></p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="scenario-section" id="scenario">
+        <div class="ghost-word" aria-hidden="true">SIMULATE</div>
+        <div class="section-head reveal">
+          <div><p class="eyebrow">03 / SCENARIO LAB</p><h2>TEST THE RISK.<br /><em>WITHOUT THE AIRCRAFT.</em></h2></div>
+          <p>Replay the same mission under changing conditions. The twin compares simulated thermodynamics and observed telemetry to expose risk before a conventional threshold alarm.</p>
+        </div>
+        <div class="scenario-grid reveal">
+          <div class="scenario-menu">
+            <p>SELECT SIMULATION PROFILE</p>
+            <button class="active" type="button" data-scenario="normal"><span>01</span> NOMINAL FLIGHT <b>↗</b></button>
+            <button type="button" data-scenario="hot"><span>02</span> HOT-WEATHER ENDURANCE <b>↗</b></button>
+            <button type="button" data-scenario="altitude"><span>03</span> HIGH-ALTITUDE CLIMB <b>↗</b></button>
+            <button type="button" data-scenario="injector"><span>04</span> INJECTOR DEGRADATION <b>↗</b></button>
+            <button type="button" data-scenario="misfire"><span>05</span> COMBUSTION MISFIRE <b>↗</b></button>
+            <button type="button" data-scenario="oil"><span>06</span> LUBRICATION RISK <b>↗</b></button>
+          </div>
+          <article class="scenario-result">
+            <div class="scenario-top"><span id="scenarioTag">PROFILE 01 / NOMINAL</span><b id="scenarioStatus">LOW RISK</b></div>
+            <p class="result-label">TWIN INTERPRETATION</p>
+            <h3 id="scenarioTitle">Mission envelope remains healthy.</h3>
+            <p id="scenarioDescription">Stable thermal behavior and pressure response match the virtual engine baseline across the current endurance leg.</p>
+            <div class="result-metrics"><div><span>FAULT LIKELIHOOD</span><strong id="faultLikelihood">04%</strong></div><div><span>PREDICTION LEAD</span><strong id="leadTime">—</strong></div><div><span>MISSION CALL</span><strong id="missionCall">PROCEED</strong></div></div>
+            <div class="result-foot"><i></i><span id="scenarioFoot">All key signals remain inside the learned physics envelope.</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="replay-section" id="replay">
+        <div class="section-head reveal">
+          <div><p class="eyebrow">04 / MISSION REPLAY</p><h2>MAKE EVERY FLIGHT<br /><em>TEACH THE NEXT.</em></h2></div>
+          <p>Post-flight replay preserves the telemetry, predicted state, and explainable-AI evidence behind every maintenance recommendation.</p>
+        </div>
+        <div class="replay-shell reveal">
+          <div class="mission-map">
+            <div class="map-grid" aria-hidden="true"></div>
+            <svg viewBox="0 0 680 330" role="img" aria-label="Mission route map">
+              <defs><linearGradient id="routeGradient" x1="0" x2="1"><stop offset="0%" stop-color="#4de8e4" stop-opacity=".2"></stop><stop offset="60%" stop-color="#7bf4ee"></stop><stop offset="100%" stop-color="#ffbd61"></stop></linearGradient></defs>
+              <path class="route-shadow" d="M47 251 C145 221, 173 106, 292 151 S422 277, 527 157 S595 113, 650 62"></path>
+              <path class="route" d="M47 251 C145 221, 173 106, 292 151 S422 277, 527 157 S595 113, 650 62"></path>
+              <circle cx="47" cy="251" r="5" class="route-start"></circle><circle cx="650" cy="62" r="7" class="route-end"></circle><circle cx="527" cy="157" r="17" class="route-event"></circle>
+              <path id="mapUav" class="map-uav" d="M0 -9 L5 -2 L25 0 L5 2 L0 9 L-5 2 L-25 0 L-5 -2 Z"></path>
+            </svg>
+            <span class="map-label start">TAKEOFF / 08:10</span><span class="map-label event">EVENT WINDOW / 11:42</span><span class="map-label end">RECOVERY / 14:22</span>
+          </div>
+          <div class="replay-panel">
+            <div class="replay-head"><div><span>ALPHA-27 / MISSION LOG</span><strong id="replayTime">11:42:18 UTC</strong></div><button id="replayPlay" type="button" aria-label="Play replay">▶</button></div>
+            <input id="replaySlider" type="range" min="0" max="100" value="65" aria-label="Mission replay position" />
+            <div class="time-scale"><span>08:10</span><span>10:20</span><span>11:42</span><span>14:22</span></div>
+            <div class="event-list">
+              <p><span>08:10</span><i class="ok"></i><b>Mission launch</b> / engine baseline synchronized</p>
+              <p><span>10:20</span><i class="ok"></i><b>Altitude transition</b> / compensation stable</p>
+              <p class="active-event"><span>11:42</span><i class="warn"></i><b id="replayEvent">AI watch raised</b> / emerging variance detected</p>
+              <p><span>14:22</span><i class="ok"></i><b>Recovery plan</b> / maintenance report ready</p>
+            </div>
+            <button id="reportButton" class="report-button" type="button">GENERATE MISSION HEALTH REPORT <b>↓</b></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="architecture-section" id="architecture">
+        <div class="architecture-title reveal"><p class="eyebrow">05 / MODULAR, GCS-READY ARCHITECTURE</p><h2>ONE TWIN. <em>THREE DECISION LOOPS.</em></h2></div>
+        <div class="architecture-flow reveal">
+          <article><span>01</span><div class="arch-icon sensors"><i></i><i></i><i></i></div><h3>SENSE</h3><p>CAN / ECU telemetry, vibration and injection-timing signals.</p></article><div class="flow"><i></i></div>
+          <article><span>02</span><div class="arch-icon twin"><i></i><b></b></div><h3>UNDERSTAND</h3><p>Physics-informed state, anomalies, degradation, and RUL.</p></article><div class="flow"><i></i></div>
+          <article><span>03</span><div class="arch-icon act">↗</div><h3>ACT</h3><p>GCS alert, mission-risk call, replay, and maintenance advisory.</p></article>
+        </div>
+        <p class="architecture-note reveal">Simulation dataset is deterministic prototype telemetry, not flight-validated data. The modular design is ready for future CAN/ECU feeds, edge inference, and fleet analytics.</p>
+      </section>
+    </main>
+
+    <div class="modal" id="briefModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-card">
+        <button class="modal-close" id="closeBrief" type="button" aria-label="Close mission brief">×</button>
+        <p class="eyebrow">MISSION BRIEF / AEROTWIN COMMAND</p>
+        <h2 id="modalTitle">FROM RAW TELEMETRY<br /><em>TO A CONFIDENT CALL.</em></h2>
+        <ol>
+          <li><span>01</span><p><b>Mirror</b> the engine with live sensor and physics state.</p></li>
+          <li><span>02</span><p><b>Predict</b> degradation before threshold alarms react.</p></li>
+          <li><span>03</span><p><b>Explain</b> the fault evidence and RUL estimate.</p></li>
+          <li><span>04</span><p><b>Decide</b> whether to proceed, adjust, or recover.</p></li>
+        </ol>
+        <button id="openCommand" class="button primary" type="button">OPEN LIVE TWIN <b>↗</b></button>
+      </div>
+    </div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
